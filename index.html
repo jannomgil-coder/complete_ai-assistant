@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Productivity Assistant | Jenet Gilman</title>
+  <meta name="description" content="Four prompt-engineered workplace tools: email generator, meeting summarizer, task planner and research assistant.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="#top">AI Productivity Assistant</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#tools">Tools</a>
+      <a href="#how">How it works</a>
+      <a href="#responsible">Use AI responsibly</a>
+    </nav>
+    <button id="theme-toggle" class="icon-btn" aria-label="Switch between light and dark mode">Theme</button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">ASA 23 project by Jenet Gilman</p>
+        <h1>Less typing.<br>Better prompts.</h1>
+        <p class="lead">Fill in a short form and get an expertly engineered prompt for ChatGPT or Gemini. It covers emails, meeting notes, task plans and research, in seconds.</p>
+        <a class="btn primary" href="#tools">Try the tools</a>
+      </div>
+      <aside class="stats" aria-label="Your productivity this session">
+        <h2>Your productivity</h2>
+        <p class="stat"><strong id="count">0</strong> prompts built</p>
+        <p class="stat"><strong id="saved">0</strong> minutes saved (your estimate)</p>
+        <label class="inline">Minutes saved per task
+          <input id="per-task" type="number" min="1" max="120" value="10">
+        </label>
+        <p class="tiny">Time yourself doing one task by hand, then enter your own number.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section id="tools" class="section">
+    <div class="wrap">
+      <h2 class="section-title">Choose a tool</h2>
+      <div class="tabs" role="tablist" aria-label="Productivity tools">
+        <button role="tab" id="tab-email" aria-controls="panel-email" aria-selected="true" class="tab">Email</button>
+        <button role="tab" id="tab-meeting" aria-controls="panel-meeting" aria-selected="false" class="tab" tabindex="-1">Meeting notes</button>
+        <button role="tab" id="tab-planner" aria-controls="panel-planner" aria-selected="false" class="tab" tabindex="-1">Task planner</button>
+        <button role="tab" id="tab-research" aria-controls="panel-research" aria-selected="false" class="tab" tabindex="-1">Research</button>
+      </div>
+
+      <!-- EMAIL -->
+      <div role="tabpanel" id="panel-email" aria-labelledby="tab-email" class="panel" data-tool="email">
+        <form class="form card" novalidate>
+          <h3>Smart Email Generator</h3>
+          <label>What is the email about? *
+            <textarea id="e-purpose" rows="3" placeholder="e.g. Ask for an extension on the Q4 report"></textarea></label>
+          <label>Key points to include
+            <textarea id="e-points" rows="3" placeholder="One per line, optional"></textarea></label>
+          <div class="row">
+            <label>Audience
+              <select id="e-audience"><option>Client</option><option>Manager</option><option>Team</option><option>Colleague</option></select></label>
+            <label>Tone
+              <select id="e-tone"><option>Formal</option><option>Informal</option><option>Persuasive</option></select></label>
+          </div>
+          <div class="row">
+            <label>Length
+              <select id="e-length"><option>Short (~80 words)</option><option selected>Medium (~150 words)</option><option>Detailed (~250 words)</option></select></label>
+            <label>Recipient name
+              <input id="e-recipient" type="text" placeholder="Optional"></label>
+          </div>
+          <label>Your name
+            <input id="e-name" type="text" placeholder="Optional"></label>
+          <div class="btns"><button type="submit" class="btn primary">Build prompt</button></div>
+        </form>
+        <div class="out card"></div>
+      </div>
+
+      <!-- MEETING -->
+      <div role="tabpanel" id="panel-meeting" aria-labelledby="tab-meeting" class="panel" data-tool="meeting" hidden>
+        <form class="form card" novalidate>
+          <h3>Meeting Notes Summarizer</h3>
+          <label>Meeting title
+            <input id="m-title" type="text" placeholder="e.g. Weekly team check-in"></label>
+          <label>Paste your meeting notes *
+            <textarea id="m-notes" rows="8" placeholder="Paste raw notes here. Remove names or details that are confidential."></textarea></label>
+          <label>Level of detail
+            <select id="m-detail"><option>Brief</option><option selected>Standard</option><option>Detailed</option></select></label>
+          <div class="btns"><button type="submit" class="btn primary">Build prompt</button></div>
+        </form>
+        <div class="out card"></div>
+      </div>
+
+      <!-- PLANNER -->
+      <div role="tabpanel" id="panel-planner" aria-labelledby="tab-planner" class="panel" data-tool="planner" hidden>
+        <form class="form card" novalidate>
+          <h3>AI Task Planner</h3>
+          <label>Your tasks, one per line *
+            <textarea id="p-tasks" rows="6" placeholder="Reply to client emails (30 min)&#10;Finish monthly report&#10;Book venue for Friday"></textarea></label>
+          <div class="row">
+            <label>Plan type
+              <select id="p-type"><option>Daily</option><option>Weekly</option></select></label>
+            <label>Working hours per day
+              <input id="p-hours" type="number" min="1" max="16" value="8"></label>
+          </div>
+          <label>Fixed commitments or deadlines
+            <textarea id="p-notes" rows="2" placeholder="e.g. Meeting 10:00 to 11:00, report due Thursday"></textarea></label>
+          <div class="btns"><button type="submit" class="btn primary">Build prompt</button></div>
+        </form>
+        <div class="out card"></div>
+      </div>
+
+      <!-- RESEARCH -->
+      <div role="tabpanel" id="panel-research" aria-labelledby="tab-research" class="panel" data-tool="research" hidden>
+        <form class="form card" novalidate>
+          <h3>AI Research Assistant</h3>
+          <label>Paste text or type a topic *
+            <textarea id="r-input" rows="7" placeholder="Paste an article, or type a topic such as: How does remote work affect productivity?"></textarea></label>
+          <div class="row">
+            <label>I want to
+              <select id="r-mode"><option>Summarise text</option><option>Explain a topic</option></select></label>
+            <label>Reader level
+              <select id="r-level"><option>Plain language</option><option>Professional</option><option>Executive brief</option></select></label>
+          </div>
+          <label>Length
+            <select id="r-length"><option>Short (under 150 words)</option><option selected>Medium (~300 words)</option><option>Detailed (~500 words)</option></select></label>
+          <div class="btns"><button type="submit" class="btn primary">Build prompt</button></div>
+        </form>
+        <div class="out card"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="how" class="section">
+    <div class="wrap">
+      <h2 class="section-title">How every prompt is built</h2>
+      <ol class="anatomy">
+        <li><strong>Role</strong><span>Tells the AI who to act as, so the answer has the right expertise.</span></li>
+        <li><strong>Context</strong><span>Audience, tone and background, taken from your form.</span></li>
+        <li><strong>Task</strong><span>One clear job, not several at once.</span></li>
+        <li><strong>Constraints</strong><span>Length, "do not invent facts" and placeholders for missing details.</span></li>
+        <li><strong>Output format</strong><span>The exact structure you want back, such as a table of action items.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="responsible" class="section">
+    <div class="wrap">
+      <h2 class="section-title">Use AI responsibly</h2>
+      <div class="cards3">
+        <article class="card"><h3>Check the facts</h3><p>AI can sound sure and still be wrong. Verify names, dates, numbers and sources before you use anything.</p></article>
+        <article class="card"><h3>Protect private data</h3><p>Do not paste passwords, personal details or confidential company information into any AI tool.</p></article>
+        <article class="card"><h3>Watch for bias</h3><p>AI learns from human writing, so it can repeat stereotypes. Read the result critically and edit it so it is fair and inclusive.</p></article>
+      </div>
+      <p class="tiny wide">Each tool has a checklist to tick before you use the result. This assistant builds prompts only. The answers come from the AI tool you choose, and you remain responsible for what you send.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap"><p>Built by Jenet Gilman | Morning AI Skills Acceleration 23 | CAPACITI</p></div>
+</footer>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="script.js"></script>
+</body>
+</html>
